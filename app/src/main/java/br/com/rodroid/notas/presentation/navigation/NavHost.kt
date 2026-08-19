@@ -1,11 +1,11 @@
 package br.com.rodroid.notas.presentation.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import br.com.rodroid.notas.presentation.features.home.HomeScreen
 
 @Composable
 fun NavHost() {
@@ -17,7 +17,7 @@ fun NavHost() {
         entryProvider = { key ->
             when(key) {
                 is Destination.Home -> NavEntry(key) {
-                    Text("Home Page")
+                    HomeScreen()
                 }
             }
         }
