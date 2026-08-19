@@ -1,6 +1,7 @@
 package br.com.rodroid.notas.presentation.atomic.templates
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,22 +23,22 @@ fun HomeTemplate(
     notes: List<Pair<String, String>>
 ) {
     Scaffold { innerPadding ->
+        val cardsSpacingMargin = 12.dp
+
         LazyVerticalStaggeredGrid(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
                 .padding(16.dp),
             columns = StaggeredGridCells.Adaptive(150.dp),
-            verticalItemSpacing = 4.dp,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            verticalItemSpacing = cardsSpacingMargin,
+            horizontalArrangement = Arrangement.spacedBy(cardsSpacingMargin)
         ) {
-            items(notes) {
-                notes.forEach { note ->
-                    NoteCardOrganism(
-                        note.first,
-                        note.second,
-                    )
-                }
+            items(notes) { note ->
+                NoteCardOrganism(
+                    note.first,
+                    note.second,
+                )
             }
         }
     }
@@ -46,6 +47,9 @@ fun HomeTemplate(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun Preview() {
+    val notesSample = List(15) { item ->
+        "Titulo #${item + 1}" to LoremIpsum(Random.nextInt(30)).values.joinToString()
+    }
     NotasTheme {
         HomeTemplate(notesSample)
     }
@@ -54,11 +58,10 @@ private fun Preview() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun PreviewLight() {
+    val notesSample = List(15) { item ->
+        "Titulo #${item + 1}" to LoremIpsum(Random.nextInt(30)).values.joinToString()
+    }
     NotasTheme {
         HomeTemplate(notesSample)
     }
-}
-
-val notesSample = List(15) { item ->
-    "Titulo #$item" to LoremIpsum(Random.nextInt(30)).values.joinToString()
 }

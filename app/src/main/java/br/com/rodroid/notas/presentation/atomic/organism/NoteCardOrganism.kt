@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.rodroid.notas.presentation.ui.theme.Colors
 import br.com.rodroid.notas.presentation.ui.theme.NotasTheme
 
@@ -43,13 +44,16 @@ fun NoteCardOrganism(
         ) {
             Text(
                 title,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 content,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
+                fontSize = 12.sp,
+                color = Color.Black
             )
         }
     }
