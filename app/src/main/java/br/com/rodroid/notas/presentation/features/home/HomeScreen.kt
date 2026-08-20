@@ -18,5 +18,6 @@ fun HomeScreen(
     HomeTemplate(
         notes = uiState.notes,
         onFabClick = {},
+        onListTypeIconClick = {}
     )
 }
