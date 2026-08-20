@@ -21,7 +21,7 @@ abstract class MviViewModel<STATE: MviState, UISTATE: MviUiState>(
         _state.tryEmit(newState)
     }
 
-    protected fun updateUiState(newUiState: UISTATE) {
-        _uiState.update { newUiState }
+    protected fun updateUiState(block: (UISTATE) -> UISTATE){
+        _uiState.update { block(it) }
     }
 }
