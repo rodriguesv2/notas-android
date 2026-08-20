@@ -17,7 +17,9 @@ fun NavHost() {
         entryProvider = { key ->
             when(key) {
                 is Destination.Home -> NavEntry(key) {
-                    HomeScreen()
+                    HomeScreen(
+                        navigateToCreateNote = {}
+                    )
                 }
             }
         }
