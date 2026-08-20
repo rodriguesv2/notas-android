@@ -48,8 +48,8 @@ fun HomeTemplate(
                         Icon(
                             painter = painterResource(
                                 when (listType) {
-                                    NotesListType.LIST -> R.drawable.ic_list
-                                    else -> R.drawable.ic_grid
+                                    NotesListType.LIST -> R.drawable.ic_grid
+                                    else -> R.drawable.ic_list
                                 }
                             ),
                             contentDescription = "",

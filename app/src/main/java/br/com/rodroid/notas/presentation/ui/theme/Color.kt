@@ -11,6 +11,8 @@ object Colors {
     val PurpleGrey40 = Color(0xFF625b71)
     val Pink40 = Color(0xFF7D5260)
 
+    val solidBlue = Color(0xff0000af)
+
     val classicYellow = Color(0xFFFFF275)
     val mintGreen = Color(0xFFB7E4C7)
     val blueSky = Color(0xFFA2D2FF)
