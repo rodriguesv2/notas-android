@@ -1,0 +1,7 @@
+package br.com.rodroid.notas.presentation.features.home
+
+import br.com.rodroid.notas.common.base.MviUiState
+
+data class HomeUiState(
+    val loading: Boolean = false,
+): MviUiState
