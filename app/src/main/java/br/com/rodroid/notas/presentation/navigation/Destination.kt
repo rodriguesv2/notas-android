@@ -5,4 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Destination {
     object Home: Destination()
+    object EditNote: Destination()
 }

@@ -5,12 +5,15 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -24,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +48,8 @@ fun EditNoteTemplate(
     onTitleChange: (String) -> Unit,
     contentValue: String?,
     onContentChanged: (String) -> Unit,
+    onDeleteClick: () -> Unit,
+    onSaveClick: () -> Unit
 ) {
     Scaffold { innerPadding ->
         Column(
@@ -69,7 +75,14 @@ fun EditNoteTemplate(
             }
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .clip(
+                        RoundedCornerShape(
+                            bottomStart = 16.dp,
+                            bottomEnd = 16.dp,
+                        )
+                    )
                     .background(Color(colorSelected)),
             ) {
                 TextField(
@@ -129,6 +142,25 @@ fun EditNoteTemplate(
                     )
                 )
             }
+            Row(Modifier.fillMaxWidth()) {
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = onSaveClick
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_square_check_mark),
+                        contentDescription = ""
+                    )
+                }
+                IconButton(
+                    onClick = onDeleteClick
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_trash),
+                        contentDescription = ""
+                    )
+                }
+            }
         }
     }
 }
@@ -159,7 +191,9 @@ private fun PreviewDefault() {
             titleValue = title,
             onTitleChange = { value -> title = value },
             contentValue = content,
-            onContentChanged = { value -> content = value }
+            onContentChanged = { value -> content = value },
+            onDeleteClick = {},
+            onSaveClick = {}
         )
     }
 }
