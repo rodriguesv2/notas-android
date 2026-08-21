@@ -1,6 +1,7 @@
 package br.com.rodroid.notas.presentation.atomic.molecules
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,19 +23,23 @@ import br.com.rodroid.notas.presentation.ui.theme.NotasTheme
 @Composable
 fun ColorMolecule(
     color: Color,
+    isSelected: Boolean,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
             .fillMaxHeight()
             .background(color)
+            .clickable(onClick = onClick)
     ) {
-        Icon(
-            modifier = Modifier.align(Alignment.Center),
-            painter = painterResource(R.drawable.ic_cicle_check_mark),
-            contentDescription = "",
-            tint = Colors.solidBlue
-        )
+        if (isSelected)
+            Icon(
+                modifier = Modifier.align(Alignment.Center),
+                painter = painterResource(R.drawable.ic_cicle_check_mark),
+                contentDescription = "",
+                tint = Colors.solidBlue
+            )
     }
 }
 
@@ -43,7 +48,12 @@ fun ColorMolecule(
 private fun Preview() {
     NotasTheme {
         ColorMolecule(
+            modifier = Modifier
+                .height(100.dp)
+                .width(80.dp),
             color = Colors.coralPink,
+            isSelected = true,
+            onClick = {}
         )
     }
 }

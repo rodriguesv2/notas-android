@@ -2,16 +2,19 @@ package br.com.rodroid.notas.presentation.atomic.templates
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,14 +24,17 @@ import br.com.rodroid.notas.presentation.ui.theme.NotasTheme
 
 @Composable
 fun EditNoteTemplate(
-    colors: List<NoteColor>
+    colors: List<NoteColor>,
+    colorSelected: Long,
+    onColorClick: (NoteColor) -> Unit,
 ) {
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(24.dp)
+                .clip(RoundedCornerShape(16.dp))
         ) {
             Row(
                 modifier = Modifier
@@ -38,9 +44,18 @@ fun EditNoteTemplate(
                 colors.forEach { color ->
                     ColorMolecule(
                         Color(color.colorHex),
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        onClick = { onColorClick(color) },
+                        isSelected = color.colorHex == colorSelected
                     )
                 }
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(colorSelected)),
+            ) {
+
             }
         }
     }
@@ -50,7 +65,11 @@ fun EditNoteTemplate(
 @Composable
 private fun Preview() {
     NotasTheme(dynamicColor = false) {
-        EditNoteTemplate(NoteColor.entries)
+        EditNoteTemplate(
+            NoteColor.entries,
+            NoteColor.CLASSIC_YELLOW.colorHex,
+            onColorClick = {},
+        )
     }
 }
 
@@ -58,6 +77,10 @@ private fun Preview() {
 @Composable
 private fun PreviewLight() {
     NotasTheme(dynamicColor = false) {
-        EditNoteTemplate(NoteColor.entries)
+        EditNoteTemplate(
+            NoteColor.entries,
+            NoteColor.CLASSIC_YELLOW.colorHex,
+            onColorClick = {},
+        )
     }
 }
