@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Notas</string>
+
+    <string name="edit_note">Editar Nota</string>
+    <string name="create_note">Criar Nota</string>
+    <string name="edit_note_title_hint">Título</string>
+    <string name="edit_note_content_hint">Escreva aqui sua nota...</string>
 </resources>
