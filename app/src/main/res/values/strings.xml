@@ -5,6 +5,8 @@
     <string name="create_note">Criar Nota</string>
     <string name="edit_note_title_hint">Título</string>
     <string name="edit_note_content_hint">Escreva aqui sua nota...</string>
+    <string name="edit_note_delete_modal_title">Excluir nota</string>
+    <string name="edit_note_delete_modal_subtitle">Tem certeza que deseja excluir essa nota?</string>
 
     <string name="modal_default_main_button">OK</string>
     <string name="modal_default_secondary_button">Continuar</string>

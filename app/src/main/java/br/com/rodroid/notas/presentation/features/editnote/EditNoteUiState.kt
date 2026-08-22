@@ -8,5 +8,6 @@ data class EditNoteUiState(
     val title: String = "",
     val content: String = "",
     val color: Long = NoteColor.CLASSIC_YELLOW.colorHex,
-    val colors: List<NoteColor> = NoteColor.entries
+    val colors: List<NoteColor> = NoteColor.entries,
+    val shouldShowDeleteModal: Boolean = false,
 ): MviUiState
