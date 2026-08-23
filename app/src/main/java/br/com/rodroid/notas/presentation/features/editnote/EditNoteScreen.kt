@@ -15,7 +15,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun EditNoteScreen(
     navigateBack: () -> Unit,
-    viewModel: EditNoteViewModel = koinViewModel()
+    viewModelKey: String,
+    viewModel: EditNoteViewModel = koinViewModel(key = viewModelKey)
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
