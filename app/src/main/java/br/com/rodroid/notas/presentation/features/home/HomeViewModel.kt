@@ -1,24 +1,32 @@
 package br.com.rodroid.notas.presentation.features.home
 
-import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import androidx.lifecycle.viewModelScope
 import br.com.rodroid.notas.common.base.MviViewModel
-import br.com.rodroid.notas.domain.entities.Note
-import kotlin.random.Random
+import br.com.rodroid.notas.domain.usecases.AllNotesUseCase
+import kotlinx.coroutines.launch
 
-class HomeViewModel: MviViewModel<HomeState, HomeUiState>(HomeUiState()) {
+class HomeViewModel(
+    private val allNotesUseCase: AllNotesUseCase
+) : MviViewModel<HomeState, HomeUiState>(HomeUiState()) {
 
     init {
-        updateUiState {
-            it.copy(
-                notes = List(15) { item ->
-                    Note(
-                        id = item.toString(),
-                        title = "Titulo #${item + 1}",
-                        content = LoremIpsum(Random.nextInt(30)).values.joinToString(),
-                        color = 0xFFFFF275
-                    )
+        viewModelScope.launch {
+            allNotesUseCase()
+                .collect { notes ->
+                    updateUiState {
+                        it.copy(notes = notes)
+                    }
                 }
-            )
+        }
+    }
+
+    fun createNote() {
+        emitState(HomeState.CreateNote)
+    }
+
+    fun changeListType() {
+        updateUiState {
+            it.copy(listType = it.listType.next())
         }
     }
 }

@@ -1,6 +1,9 @@
 package br.com.rodroid.notas
 
 import android.app.Application
+import br.com.rodroid.notas.data.local.di.database.databaseModule
+import br.com.rodroid.notas.data.local.di.repository.repositoryModule
+import br.com.rodroid.notas.domain.di.useCaseModule
 import br.com.rodroid.notas.presentation.di.modules.viewmodels.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -15,7 +18,10 @@ class NotasApplication: Application() {
             androidLogger()
             androidContext(this@NotasApplication)
             modules(
-                viewModelModule
+                databaseModule,
+                viewModelModule,
+                repositoryModule,
+                useCaseModule,
             )
         }
     }

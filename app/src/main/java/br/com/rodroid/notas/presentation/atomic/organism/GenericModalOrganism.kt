@@ -39,6 +39,7 @@ fun GenericModalOrganism(
     title: String,
     subtitle: String,
     onMainButtonClick: () -> Unit,
+    onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     mainButtonText: String = stringResource(R.string.modal_default_main_button),
     secondaryButtonText: String = stringResource(R.string.modal_default_secondary_button),
@@ -46,7 +47,7 @@ fun GenericModalOrganism(
     icon: Painter = painterResource(R.drawable.ic_info),
 ) {
     Dialog(
-        onDismissRequest = { },
+        onDismissRequest = onDismissRequest,
         properties = DialogProperties()
     ) {
         Card(
@@ -138,6 +139,7 @@ private fun PreviewDefault(modifier: Modifier = Modifier) {
             subtitle = "Tem certeza que deseja excluir essa nota?",
             onMainButtonClick = {},
             onSecondaryButtonClick = {},
+            onDismissRequest = {},
             modifier = modifier
         )
     }

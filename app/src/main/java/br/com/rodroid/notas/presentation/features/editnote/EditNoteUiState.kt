@@ -5,6 +5,7 @@ import br.com.rodroid.notas.domain.entities.NoteColor
 
 data class EditNoteUiState(
     val loading: Boolean = false,
+    val errorMessage: String? = null,
     val title: String = "",
     val content: String = "",
     val color: Long = NoteColor.CLASSIC_YELLOW.colorHex,

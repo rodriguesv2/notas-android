@@ -19,12 +19,18 @@ fun NavHost() {
             when(key) {
                 is Destination.Home -> NavEntry(key) {
                     HomeScreen(
-                        navigateToCreateNote = {}
+                        navigateToCreateNote = {
+                            backStack.add(Destination.EditNote)
+                        },
                     )
                 }
 
                 Destination.EditNote -> NavEntry(key) {
-                    EditNoteScreen()
+                    EditNoteScreen(
+                        navigateBack = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
                 }
             }
         }

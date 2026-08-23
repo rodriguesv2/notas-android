@@ -7,7 +7,12 @@
     <string name="edit_note_content_hint">Escreva aqui sua nota...</string>
     <string name="edit_note_delete_modal_title">Excluir nota</string>
     <string name="edit_note_delete_modal_subtitle">Tem certeza que deseja excluir essa nota?</string>
+    <string name="edit_note_created_message">Nota criada com sucesso</string>
+    <string name="edit_note_updated_message">Nota atualizada com sucesso</string>
 
     <string name="modal_default_main_button">OK</string>
     <string name="modal_default_secondary_button">Continuar</string>
+
+    <string name="generic_error_modal_title">Ops</string>
+    <string name="generic_error_modal_subtitle">Aconteceu um erro, tente novamente</string>
 </resources>
