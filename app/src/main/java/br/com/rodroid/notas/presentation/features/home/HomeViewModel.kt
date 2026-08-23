@@ -29,4 +29,8 @@ class HomeViewModel(
             it.copy(listType = it.listType.next())
         }
     }
+
+    fun changeDarkLightMode() {
+        //TODO
+    }
 }

@@ -28,6 +28,8 @@ fun HomeScreen(
         notes = uiState.notes,
         onFabClick = viewModel::createNote,
         onListTypeIconClick = viewModel::changeListType,
-        listType = uiState.listType
+        listType = uiState.listType,
+        onDarkLightModeClick = viewModel::changeDarkLightMode,
+        darkLightMode = uiState.darkLightMode
     )
 }
