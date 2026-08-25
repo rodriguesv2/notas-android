@@ -2,6 +2,7 @@ package br.com.rodroid.notas
 
 import android.app.Application
 import br.com.rodroid.notas.data.local.di.database.databaseModule
+import br.com.rodroid.notas.data.local.di.datastore.dataStoreModule
 import br.com.rodroid.notas.data.local.di.repository.repositoryModule
 import br.com.rodroid.notas.domain.di.useCaseModule
 import br.com.rodroid.notas.presentation.di.modules.viewmodels.viewModelModule
@@ -19,6 +20,7 @@ class NotasApplication: Application() {
             androidContext(this@NotasApplication)
             modules(
                 databaseModule,
+                dataStoreModule,
                 viewModelModule,
                 repositoryModule,
                 useCaseModule,

@@ -25,7 +25,9 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.rodroid.notas.R
+import br.com.rodroid.notas.common.model.DarkLightModeType
 import br.com.rodroid.notas.domain.entities.Note
+import br.com.rodroid.notas.domain.entities.NoteColor
 import br.com.rodroid.notas.presentation.atomic.organism.NoteCardOrganism
 import br.com.rodroid.notas.presentation.models.NotesListType
 import br.com.rodroid.notas.presentation.ui.theme.NotasTheme
@@ -37,13 +39,27 @@ fun HomeTemplate(
     notes: List<Note>,
     onFabClick: () -> Unit,
     onListTypeIconClick: () -> Unit,
-    listType: NotesListType = NotesListType.LIST
+    onDarkLightModeClick: () -> Unit,
+    darkLightMode: DarkLightModeType,
+    listType: NotesListType = NotesListType.LIST,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 {},
                 actions = {
+                    IconButton(onClick = onDarkLightModeClick) {
+                        Icon(
+                            painter = painterResource(
+                                when (darkLightMode) {
+                                    DarkLightModeType.AUTO -> R.drawable.ic_light_mode_auto
+                                    DarkLightModeType.DARK -> R.drawable.ic_dark_mode
+                                    else -> R.drawable.ic_light_mode
+                                }
+                            ),
+                            contentDescription = "",
+                        )
+                    }
                     IconButton(onClick = onListTypeIconClick) {
                         Icon(
                             painter = painterResource(
@@ -123,33 +139,27 @@ fun HomeTemplate(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun Preview() {
-    val notesSample = List(15) { item ->
-        Note(
-            id = item.toString(),
-            title = "Titulo #${item + 1}",
-            content = LoremIpsum(Random.nextInt(30)).values.joinToString(),
-            color = 0xFFFFF275
-        )
-    }
-    NotasTheme {
-        HomeTemplate(
-            notes = notesSample,
-            onFabClick = {},
-            onListTypeIconClick = {},
-            listType = NotesListType.LIST,
-        )
-    }
+    DefaultPreview()
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun PreviewLight() {
+    DefaultPreview()
+}
+
+@Composable
+private fun DefaultPreview() {
     val notesSample = List(15) { item ->
         Note(
             id = item.toString(),
             title = "Titulo #${item + 1}",
             content = LoremIpsum(Random.nextInt(30)).values.joinToString(),
-            color = 0xFFFFF275
+            color = NoteColor
+                .entries
+                .toTypedArray()
+                .random()
+                .colorHex
         )
     }
     NotasTheme {
@@ -157,7 +167,9 @@ private fun PreviewLight() {
             notes = notesSample,
             onFabClick = {},
             onListTypeIconClick = {},
-            listType = NotesListType.LIST,
+            listType = NotesListType.GRID,
+            onDarkLightModeClick = {},
+            darkLightMode = DarkLightModeType.DARK
         )
     }
 }
