@@ -53,7 +53,7 @@ fun HomeTemplate(
                             painter = painterResource(
                                 when (darkLightMode) {
                                     DarkLightModeType.AUTO -> R.drawable.ic_light_mode_auto
-                                    DarkLightModeType.DARk -> R.drawable.ic_dark_mode
+                                    DarkLightModeType.DARK -> R.drawable.ic_dark_mode
                                     else -> R.drawable.ic_light_mode
                                 }
                             ),
@@ -169,7 +169,7 @@ private fun DefaultPreview() {
             onListTypeIconClick = {},
             listType = NotesListType.GRID,
             onDarkLightModeClick = {},
-            darkLightMode = DarkLightModeType.DARk
+            darkLightMode = DarkLightModeType.DARK
         )
     }
 }

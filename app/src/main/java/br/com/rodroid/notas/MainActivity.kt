@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             NotasTheme(
                 darkTheme = when (darkLightMode) {
                     DarkLightModeType.AUTO -> isSystemInDarkTheme()
-                    DarkLightModeType.DARk -> true
+                    DarkLightModeType.DARK -> true
                     DarkLightModeType.LIGHT -> false
                 }
             ) {

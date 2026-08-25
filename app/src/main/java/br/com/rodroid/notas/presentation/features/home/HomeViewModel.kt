@@ -21,7 +21,8 @@ class HomeViewModel(
                         it.copy(notes = notes)
                     }
                 }
-
+        }
+        viewModelScope.launch {
             darkLightModeValueUseCase()
                 .collect { darkLightMode ->
                     updateUiState {

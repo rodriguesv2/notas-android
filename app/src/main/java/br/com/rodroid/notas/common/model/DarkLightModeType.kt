@@ -1,12 +1,12 @@
 package br.com.rodroid.notas.common.model
 
 enum class DarkLightModeType {
-    AUTO, DARk, LIGHT;
+    AUTO, DARK, LIGHT;
 
     fun next(): DarkLightModeType {
         return when (this) {
-            AUTO -> DARk
-            DARk -> LIGHT
+            AUTO -> DARK
+            DARK -> LIGHT
             LIGHT -> AUTO
         }
     }
