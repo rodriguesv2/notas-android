@@ -2,9 +2,11 @@ package br.com.rodroid.notas
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.rodroid.notas.common.model.DarkLightModeType
@@ -21,12 +23,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             val darkLightMode by viewModel.darkLightMode.collectAsStateWithLifecycle()
 
+            val darkTheme = when (darkLightMode) {
+                DarkLightModeType.AUTO -> isSystemInDarkTheme()
+                DarkLightModeType.DARK -> true
+                DarkLightModeType.LIGHT -> false
+            }
+
+            DisposableEffect(darkTheme) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT,
+                    ) { darkTheme }
+                )
+                onDispose {}
+            }
+
             NotasTheme(
-                darkTheme = when (darkLightMode) {
-                    DarkLightModeType.AUTO -> isSystemInDarkTheme()
-                    DarkLightModeType.DARK -> true
-                    DarkLightModeType.LIGHT -> false
-                }
+                darkTheme = darkTheme
             ) {
                 NavHost()
             }
