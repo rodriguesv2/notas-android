@@ -6,7 +6,6 @@ import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import br.com.rodroid.notas.presentation.features.editnote.EditNoteScreen
-import br.com.rodroid.notas.presentation.features.editnote.EditNoteViewModel
 import br.com.rodroid.notas.presentation.features.home.HomeScreen
 import org.koin.androidx.compose.koinViewModel
 

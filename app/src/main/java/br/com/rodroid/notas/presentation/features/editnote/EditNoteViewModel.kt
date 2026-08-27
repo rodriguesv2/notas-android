@@ -23,11 +23,21 @@ class EditNoteViewModel(
 
         viewModelScope.launch {
             fetchNoteItemUseCase(noteId)
-                .onSuccess {
-                    //TODO
+                .onSuccess { note ->
+                    this@EditNoteViewModel.noteId = note.id
+
+                    updateUiState {
+                        it.copy(
+                            title = note.title,
+                            content = note.content,
+                            color = note.color
+                        )
+                    }
                 }
                 .onFailure {
-                    //TODO
+                    updateUiState {
+                        it.copy(errorMessage = it.errorMessage)
+                    }
                 }
         }
     }
@@ -67,7 +77,7 @@ class EditNoteViewModel(
             color = uiState.value.color
         )
             .onSuccess {
-                emitState(EditNoteState.NoteCreated)
+                emitState(EditNoteState.NoteUpdated)
             }
             .onFailure { exception ->
                 updateUiState { it.copy(errorMessage = exception.message) }

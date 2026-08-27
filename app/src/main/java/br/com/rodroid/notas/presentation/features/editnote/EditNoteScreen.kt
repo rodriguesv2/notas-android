@@ -10,7 +10,6 @@ import br.com.rodroid.notas.R
 import br.com.rodroid.notas.presentation.atomic.organism.GenericModalOrganism
 import br.com.rodroid.notas.presentation.atomic.templates.EditNoteTemplate
 import br.com.rodroid.notas.presentation.extensions.toast
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun EditNoteScreen(
