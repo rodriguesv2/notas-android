@@ -8,5 +8,7 @@ sealed class Destination {
     data object Home: Destination()
 
     @Serializable
-    data object EditNote: Destination()
+    data class EditNote(
+        val noteId: String? = null,
+    ): Destination()
 }

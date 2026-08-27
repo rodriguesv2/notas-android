@@ -5,6 +5,7 @@ import br.com.rodroid.notas.common.base.MviViewModel
 import br.com.rodroid.notas.domain.entities.NoteColor
 import br.com.rodroid.notas.domain.usecases.DeleteNoteUseCase
 import br.com.rodroid.notas.domain.usecases.CreateNoteUseCase
+import br.com.rodroid.notas.domain.usecases.FetchNoteItemUseCase
 import br.com.rodroid.notas.domain.usecases.UpdateNoteUseCase
 import kotlinx.coroutines.launch
 
@@ -12,9 +13,24 @@ class EditNoteViewModel(
     private val createNoteUseCase: CreateNoteUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val updateNoteUseCase: UpdateNoteUseCase,
+    private val fetchNoteItemUseCase: FetchNoteItemUseCase,
 ) : MviViewModel<EditNoteState, EditNoteUiState>(initialUiState = EditNoteUiState()) {
 
     private var noteId: String? = null
+
+    fun loadNote(noteId: String?) {
+        if (noteId == null) return
+
+        viewModelScope.launch {
+            fetchNoteItemUseCase(noteId)
+                .onSuccess {
+                    //TODO
+                }
+                .onFailure {
+                    //TODO
+                }
+        }
+    }
 
     fun saveNote() {
         viewModelScope.launch {
@@ -42,6 +58,7 @@ class EditNoteViewModel(
             }
     }
 
+
     private suspend fun updateNote() {
         updateNoteUseCase(
             noteId = noteId!!,
@@ -56,7 +73,6 @@ class EditNoteViewModel(
                 updateUiState { it.copy(errorMessage = exception.message) }
             }
     }
-
 
     fun colorSelected(noteColor: NoteColor) {
         updateUiState {
@@ -82,6 +98,7 @@ class EditNoteViewModel(
         }
     }
 
+
     fun deletionConfirmed() {
         viewModelScope.launch {
             noteId?.let { id ->
@@ -95,7 +112,6 @@ class EditNoteViewModel(
             }
         }
     }
-
 
     fun dismissDeleteModal() {
         updateUiState {

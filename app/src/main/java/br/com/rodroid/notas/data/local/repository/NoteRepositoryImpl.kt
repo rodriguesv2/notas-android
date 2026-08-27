@@ -23,4 +23,8 @@ class NoteRepositoryImpl(
     override suspend fun updateNote(note: NoteEntity) {
         noteDao.updateNote(note)
     }
+
+    override suspend fun getNoteById(noteId: String): NoteEntity? {
+        return noteDao.getNoteById(noteId)
+    }
 }

@@ -10,6 +10,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     navigateToCreateNote: () -> Unit,
+    navigateToEditNote: (id: String) -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -28,6 +29,7 @@ fun HomeScreen(
         onListTypeIconClick = viewModel::changeListType,
         listType = uiState.listType,
         onDarkLightModeClick = viewModel::changeDarkLightMode,
-        darkLightMode = uiState.darkLightMode
+        darkLightMode = uiState.darkLightMode,
+        onItemNoteClick = navigateToEditNote,
     )
 }
