@@ -10,15 +10,19 @@ import br.com.rodroid.notas.R
 import br.com.rodroid.notas.presentation.atomic.organism.GenericModalOrganism
 import br.com.rodroid.notas.presentation.atomic.templates.EditNoteTemplate
 import br.com.rodroid.notas.presentation.extensions.toast
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun EditNoteScreen(
     navigateBack: () -> Unit,
     viewModel: EditNoteViewModel,
+    noteId: String? = null,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    LaunchedEffect(viewModel) {
+        viewModel.loadNote(noteId)
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.state.collect { state ->

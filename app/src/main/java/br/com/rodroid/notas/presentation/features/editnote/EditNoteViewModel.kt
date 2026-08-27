@@ -5,6 +5,7 @@ import br.com.rodroid.notas.common.base.MviViewModel
 import br.com.rodroid.notas.domain.entities.NoteColor
 import br.com.rodroid.notas.domain.usecases.DeleteNoteUseCase
 import br.com.rodroid.notas.domain.usecases.CreateNoteUseCase
+import br.com.rodroid.notas.domain.usecases.FetchNoteItemUseCase
 import br.com.rodroid.notas.domain.usecases.UpdateNoteUseCase
 import kotlinx.coroutines.launch
 
@@ -12,9 +13,34 @@ class EditNoteViewModel(
     private val createNoteUseCase: CreateNoteUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val updateNoteUseCase: UpdateNoteUseCase,
+    private val fetchNoteItemUseCase: FetchNoteItemUseCase,
 ) : MviViewModel<EditNoteState, EditNoteUiState>(initialUiState = EditNoteUiState()) {
 
     private var noteId: String? = null
+
+    fun loadNote(noteId: String?) {
+        if (noteId == null) return
+
+        viewModelScope.launch {
+            fetchNoteItemUseCase(noteId)
+                .onSuccess { note ->
+                    this@EditNoteViewModel.noteId = note.id
+
+                    updateUiState {
+                        it.copy(
+                            title = note.title,
+                            content = note.content,
+                            color = note.color
+                        )
+                    }
+                }
+                .onFailure {
+                    updateUiState {
+                        it.copy(errorMessage = it.errorMessage)
+                    }
+                }
+        }
+    }
 
     fun saveNote() {
         viewModelScope.launch {
@@ -42,6 +68,7 @@ class EditNoteViewModel(
             }
     }
 
+
     private suspend fun updateNote() {
         updateNoteUseCase(
             noteId = noteId!!,
@@ -50,13 +77,12 @@ class EditNoteViewModel(
             color = uiState.value.color
         )
             .onSuccess {
-                emitState(EditNoteState.NoteCreated)
+                emitState(EditNoteState.NoteUpdated)
             }
             .onFailure { exception ->
                 updateUiState { it.copy(errorMessage = exception.message) }
             }
     }
-
 
     fun colorSelected(noteColor: NoteColor) {
         updateUiState {
@@ -82,6 +108,7 @@ class EditNoteViewModel(
         }
     }
 
+
     fun deletionConfirmed() {
         viewModelScope.launch {
             noteId?.let { id ->
@@ -95,7 +122,6 @@ class EditNoteViewModel(
             }
         }
     }
-
 
     fun dismissDeleteModal() {
         updateUiState {

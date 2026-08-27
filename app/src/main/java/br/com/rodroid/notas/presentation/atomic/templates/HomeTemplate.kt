@@ -1,6 +1,7 @@
 package br.com.rodroid.notas.presentation.atomic.templates
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -41,6 +42,7 @@ fun HomeTemplate(
     onListTypeIconClick: () -> Unit,
     onDarkLightModeClick: () -> Unit,
     darkLightMode: DarkLightModeType,
+    onItemNoteClick: (id: String) -> Unit,
     listType: NotesListType = NotesListType.LIST,
 ) {
     Scaffold(
@@ -101,6 +103,10 @@ fun HomeTemplate(
                         key = { it.id },
                     ) { note ->
                         NoteCardOrganism(
+                            modifier = Modifier
+                                .clickable(
+                                    onClick = { onItemNoteClick(note.id) }
+                                ),
                             title = note.title,
                             content = note.content,
                             color = Color(note.color)
@@ -124,6 +130,10 @@ fun HomeTemplate(
                         key = { it.id },
                     ) { note ->
                         NoteCardOrganism(
+                            modifier = Modifier
+                                .clickable(
+                                    onClick = { onItemNoteClick(note.id) }
+                                ),
                             title = note.title,
                             content = note.content,
                             color = Color(note.color)
@@ -169,6 +179,7 @@ private fun DefaultPreview() {
             onListTypeIconClick = {},
             listType = NotesListType.GRID,
             onDarkLightModeClick = {},
+            onItemNoteClick = {},
             darkLightMode = DarkLightModeType.DARK
         )
     }
