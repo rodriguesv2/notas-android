@@ -6,7 +6,9 @@ import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import br.com.rodroid.notas.presentation.features.editnote.EditNoteScreen
+import br.com.rodroid.notas.presentation.features.editnote.EditNoteViewModel
 import br.com.rodroid.notas.presentation.features.home.HomeScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun NavHost() {
@@ -20,14 +22,16 @@ fun NavHost() {
                 is Destination.Home -> NavEntry(key) {
                     HomeScreen(
                         navigateToCreateNote = {
-                            backStack.add(Destination.EditNote())
+                            backStack.add(Destination.EditNote)
                         },
                     )
                 }
 
                 is Destination.EditNote -> NavEntry(key) {
+                    val id = System.currentTimeMillis()
+
                     EditNoteScreen(
-                        viewModelKey = key.id.toString(),
+                        viewModel = koinViewModel(key = id.toString()),
                         navigateBack = {
                             backStack.removeLastOrNull()
                         }

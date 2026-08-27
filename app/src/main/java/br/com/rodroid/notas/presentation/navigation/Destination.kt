@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Destination {
     @Serializable
-    object Home: Destination()
+    data object Home: Destination()
 
     @Serializable
-    data class EditNote(val id: Long = System.currentTimeMillis()): Destination()
+    data object EditNote: Destination()
 }
